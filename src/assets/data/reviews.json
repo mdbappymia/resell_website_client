@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "image": "/images/avatar1.jpg",
+    "review": "This product exceeded my expectations. It is of great quality and the price is unbeatable."
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "image": "/images/avatar2.jpg",
+    "review": "I love this product! It has made my life so much easier. Highly recommended."
+  },
+  {
+    "id": 3,
+    "name": "David Johnson",
+    "image": "/images/avatar3.jpg",
+    "review": "The customer service was excellent. They were very helpful and answered all my questions."
+  }
+]
