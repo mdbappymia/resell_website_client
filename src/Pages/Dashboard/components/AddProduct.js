@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 
 const ProductForm = () => {
+  const [content, setContent] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
+    data.details = content;
     console.log(data);
-    // You can perform further actions with the form data
+    //You can perform further actions with the form data
     fetch("http://localhost:5000/product/add", {
       method: "POST",
       headers: {
@@ -19,7 +24,12 @@ const ProductForm = () => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((result) => {
+        if (result.insertId > 0) {
+          setContent(0);
+          reset();
+        }
+      });
   };
 
   return (
@@ -81,14 +91,19 @@ const ProductForm = () => {
         <label htmlFor="details" className="block text-gray-700 font-bold mb-2">
           Details
         </label>
-        <textarea
+        {/* <textarea
           id="details"
           {...register("details", { required: true })}
           className="border border-gray-300 rounded-md p-2 w-full"
+        /> */}
+        <ReactQuill
+          value={content}
+          onChange={(value) => setContent(value)}
+          placeholder="Write something..."
         />
-        {errors.details && (
+        {/* {errors.details && (
           <span className="text-red-500">This field is required</span>
-        )}
+        )} */}
       </div>
       <div className="mb-4">
         <label

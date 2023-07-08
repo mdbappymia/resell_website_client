@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
@@ -12,7 +13,7 @@ const Dashboard = () => {
           <ul className="mt-4">
             <li className="py-2">
               <Link to="/dashboard" className="block hover:text-gray-300">
-                Home
+                All Products
               </Link>
             </li>
             <li className="py-2">
@@ -39,7 +40,6 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 p-8">
-        <h1 className="text-3xl font-bold mb-4">Welcome to the Dashboard</h1>
         <Outlet />
         {/* Add your dashboard components and content here */}
       </div>

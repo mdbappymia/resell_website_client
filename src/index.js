@@ -9,6 +9,8 @@ import Shop from "./Pages/Shop/Shop";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import AllProducts from "./Pages/Dashboard/components/AllProducts";
 import AddProduct from "./Pages/Dashboard/components/AddProduct";
+import Login from "./Pages/Login/Login";
+import SignupPage from "./Pages/Login/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
         element: <AddProduct />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
   },
 ]);
 
