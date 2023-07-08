@@ -1,7 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -11,17 +13,7 @@ const Login = () => {
   const onSubmit = (data) => {
     // Handle login logic here
     console.log(data);
-    // fetch(`http://localhost:5000/user/add`, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log(result);
-    //   });
+    login(data);
   };
 
   return (

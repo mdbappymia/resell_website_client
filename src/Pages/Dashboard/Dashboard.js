@@ -34,6 +34,14 @@ const Dashboard = () => {
                 Customers
               </a>
             </li>
+            <li className="py-2">
+              <Link
+                to="/"
+                className="block absolute hover:text-gray-300 bottom-5"
+              >
+                Back to home
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

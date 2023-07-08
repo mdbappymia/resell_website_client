@@ -36,7 +36,7 @@ const SingleProductCard = ({ product }) => {
             <p>Update</p>
           </Button>
           <Button outline pill>
-            <Link to={`/details/${product.id}`}>View Details</Link>
+            <Link to={`/details/${product._id}`}>View Details</Link>
           </Button>
           <Button color="failure">
             <p>Delete</p>

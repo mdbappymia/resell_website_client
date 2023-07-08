@@ -52,7 +52,7 @@ const Shop = () => {
                   </p>
                 </Button>
                 <Button outline pill>
-                  <Link to={`/details/${product.id}`}>View Details</Link>
+                  <Link to={`/details/${product._id}`}>View Details</Link>
                 </Button>
               </div>
             </div>

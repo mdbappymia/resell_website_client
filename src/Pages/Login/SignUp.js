@@ -103,7 +103,14 @@ const SignupPage = () => {
               htmlFor="privacy"
               className="ml-2 block text-sm text-gray-900"
             >
-              I agree to the privacy policy
+              I agree to the{" "}
+              <a
+                href="/privacy_policy"
+                target="_blank"
+                className="text-blue-700 underline"
+              >
+                privacy policy
+              </a>
             </label>
           </div>
           {errors.privacy && (

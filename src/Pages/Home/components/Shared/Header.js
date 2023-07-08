@@ -1,8 +1,12 @@
 import React from "react";
-import { Navbar } from "flowbite-react";
+import { Button, Dropdown, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useAuth from "../../../../hooks/useAuth";
 
 const Header = () => {
+  const { isAuthenticate } = useSelector((state) => state.userSlice);
+  const { logOut } = useAuth();
   return (
     <div>
       <div>
@@ -51,6 +55,7 @@ const Header = () => {
                 Search
               </button>
             </div>
+
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
@@ -59,6 +64,24 @@ const Header = () => {
             </Link>
             <Link to="/shop">Shop</Link>
             <Link to="/">Contact</Link>
+            {isAuthenticate ? (
+              <div className="dropdown-btn">
+                <Dropdown label="More">
+                  <Dropdown.Item>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item>Earnings</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Button onClick={logOut} color="failure" pill size="xs">
+                      <p>Sign Out</p>
+                    </Button>
+                  </Dropdown.Item>
+                </Dropdown>
+              </div>
+            ) : (
+              <></>
+            )}
           </Navbar.Collapse>
         </Navbar>
       </div>
