@@ -8,6 +8,7 @@ const useAuth = () => {
     dispatch(setIsLoading(true));
     fetch(`${process.env.REACT_APP_API_URL}/user/add`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "content-type": "application/json",
       },
@@ -15,7 +16,10 @@ const useAuth = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        if (result.email) {
+          dispatch(setUser(result));
+          dispatch(setAuth(true));
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -59,7 +63,6 @@ const useAuth = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.email) {
           dispatch(setUser(result));
           dispatch(setAuth(true));
@@ -81,9 +84,9 @@ const useAuth = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.message === "Logged out successfully") {
           dispatch(setUser({}));
+          dispatch(setAuth(false));
         }
       });
   };

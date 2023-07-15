@@ -1,13 +1,34 @@
 import { Button } from "flowbite-react";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { setProducts } from "../../../redux/slices/productSlice";
 
 const SingleProductCard = ({ product }) => {
+  const { products } = useSelector((state) => state.productSlice);
+  const dispatch = useDispatch();
+  const deleteProduct = (id) => {
+    const isConfirm = window.confirm("Are you sure to delete the product?");
+    if (isConfirm) {
+      fetch(`${process.env.REACT_APP_API_URL}/products/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+          if (result.affectedRows > 0) {
+            const updatedProducts = products.filter((p) => p._id !== id);
+            console.log(updatedProducts);
+            dispatch(setProducts(updatedProducts));
+            toast("Product Delete successfully");
+          }
+        });
+    }
+  };
   return (
-    <div
-      key={product.id}
-      className="bg-white shadow-md hover:scale-105 transition-all ease-in-out"
-    >
+    <div className="bg-white shadow-md hover:scale-105 transition-all ease-in-out">
       <img
         src={product.image}
         alt={product.name}
@@ -38,7 +59,7 @@ const SingleProductCard = ({ product }) => {
           <Button outline pill>
             <Link to={`/details/${product._id}`}>View Details</Link>
           </Button>
-          <Button color="failure">
+          <Button onClick={() => deleteProduct(product._id)} color="failure">
             <p>Delete</p>
           </Button>
         </div>

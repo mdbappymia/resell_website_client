@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SingleProductCard from "./SingleProductCard";
+import { useSelector } from "react-redux";
 
 const AllProducts = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((e) => console.log(e));
-  }, []);
+  const { products } = useSelector((state) => state.productSlice);
   console.log(products);
   return (
     <div>

@@ -11,16 +11,18 @@ const Header = () => {
     <div>
       <div>
         <Navbar fluid rounded>
-          <Navbar.Brand href="/">
-            <img
-              alt="Flowbite React Logo"
-              className="mr-3 h-6 sm:h-9"
-              src="https://www.flowbite-react.com/favicon.svg"
-            />
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              Flowbite React
-            </span>
-          </Navbar.Brand>
+          <Link to="/">
+            <div className="flex">
+              <img
+                alt="Flowbite React Logo"
+                className="mr-3 h-6 sm:h-9"
+                src="https://www.flowbite-react.com/favicon.svg"
+              />
+              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                Flowbite React
+              </span>
+            </div>
+          </Link>
           <div className="flex md:order-2">
             <div className="flex items-center">
               <div className="relative mr-4">

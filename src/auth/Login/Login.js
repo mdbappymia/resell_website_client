@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
+  const { isAuthenticate } = useSelector((state) => state.userSlice);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,10 +15,13 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // Handle login logic here
-    console.log(data);
     login(data);
   };
+  useEffect(() => {
+    if (isAuthenticate) {
+      navigate("/");
+    }
+  }, [isAuthenticate, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -72,6 +79,12 @@ const Login = () => {
             Log in
           </button>
         </form>
+        <p className="text-center my-4">
+          No account?{" "}
+          <Link to="/signup" className=" text-blue-600 hover:text-blue-900">
+            Create new
+          </Link>
+        </p>
       </div>
     </div>
   );

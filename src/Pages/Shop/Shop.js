@@ -2,9 +2,11 @@ import { Button } from "flowbite-react";
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import products from "../../assets/data/products.json";
+
+import { useSelector } from "react-redux";
 
 const Shop = () => {
+  const { products } = useSelector((state) => state.productSlice);
   return (
     <section className="py-8">
       <div className="container mx-auto px-4">
@@ -19,10 +21,10 @@ const Shop = () => {
               />
               <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
               <div className="flex justify-between py-3">
-                <div class="text-sm font-light mt-1">
+                <div className="text-sm font-light mt-1">
                   <del>{product.price}$</del>
                 </div>
-                <div class="text-xl font-semibold mt-1">
+                <div className="text-xl font-semibold mt-1">
                   {(
                     product.price -
                     (product.price * product.discount) / 100
@@ -45,7 +47,7 @@ const Shop = () => {
                   />
                 </svg>
               </div>
-              <div class="flex text-sm font-medium justify-between">
+              <div className="flex text-sm font-medium justify-between">
                 <Button>
                   <p>
                     Buy now <FaShoppingCart className="inline" />

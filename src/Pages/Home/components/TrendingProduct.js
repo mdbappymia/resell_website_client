@@ -1,17 +1,20 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react";
-import allProducts from "../../../assets/data/products.json";
+
 import { Button } from "flowbite-react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const TrendingProduct = () => {
-  const products = allProducts.slice(0, 4);
+  const allProducts = useSelector((state) => state.productSlice.products);
+  const products = allProducts?.filter((a) => a.product_type === "trending");
   return (
     <section className="bg-gray-100 py-8">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold mb-4">Trending Now</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {products.map((product) => (
+          {products?.map((product) => (
             <div
               key={product.id}
               className=" hover:scale-105 hover:shadow-md transition-all ease-in-out"
@@ -22,11 +25,13 @@ const TrendingProduct = () => {
                     {product.discount}%
                   </button>
                 </div>
-                <img
-                  src={product.image[0]}
-                  alt="Just a flower"
-                  className=" w-full   object-fill"
-                />
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={product?.image?.split(",")[0]}
+                    alt="Just a flower"
+                    className=" w-full"
+                  />
+                </div>
               </div>
               <div className="flex-auto justify-evenly p-2">
                 <div className="flex flex-wrap ">
@@ -66,11 +71,13 @@ const TrendingProduct = () => {
                   </div>
                 </div>
                 <div className="flex text-sm font-medium justify-between">
-                  <Button>
-                    <p>
-                      Buy now <FaShoppingCart className="inline" />
-                    </p>
-                  </Button>
+                  <a href={product.product_link} target="_blank">
+                    <Button>
+                      <p>
+                        Buy now <FaShoppingCart className="inline" />
+                      </p>
+                    </Button>
+                  </a>
                   <Button outline pill>
                     <Link to={`/details/${product.id}`}>View Details</Link>
                   </Button>

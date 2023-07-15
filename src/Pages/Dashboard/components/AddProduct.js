@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../../redux/slices/productSlice";
 const ProductForm = () => {
   const [content, setContent] = useState("");
+  const { products } = useSelector((state) => state.productSlice);
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -14,9 +19,8 @@ const ProductForm = () => {
 
   const onSubmit = (data) => {
     data.details = content;
-    console.log(data);
     //You can perform further actions with the form data
-    fetch("http://localhost:5000/product/add", {
+    fetch("http://localhost:5000/products/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -28,10 +32,12 @@ const ProductForm = () => {
         if (result.insertId > 0) {
           setContent(0);
           reset();
+          dispatch(setProducts([...products, { ...data, _id: result._id }]));
+          toast("Product Add successfully");
         }
-      });
+      })
+      .catch((e) => toast(e.message));
   };
-
   return (
     <form className=" mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
@@ -82,6 +88,7 @@ const ProductForm = () => {
           <option value="">Select Product Type</option>
           <option value="trending">Trending</option>
           <option value="most_sell">Most Sell</option>
+          <option value="none">None</option>
         </select>
         {errors.product_type && (
           <span className="text-red-500">This field is required</span>

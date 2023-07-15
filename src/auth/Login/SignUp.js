@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const SignupPage = () => {
+  const { signUp } = useAuth();
+  const { isAuthenticate } = useSelector((state) => state.userSlice);
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -9,19 +16,14 @@ const SignupPage = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    fetch(`http://localhost:5000/user/add`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });
+    signUp(data);
   };
+
+  useEffect(() => {
+    if (isAuthenticate) {
+      navigate("/");
+    }
+  }, [isAuthenticate, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -128,6 +130,12 @@ const SignupPage = () => {
             </button>
           </div>
         </form>
+        <p className="text-center my-4">
+          Already have an account?{" "}
+          <Link to="/login" className=" text-blue-600 hover:text-blue-900">
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
   );

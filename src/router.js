@@ -7,8 +7,8 @@ import PrivateRoute from "./auth/PrivetRouter/PrivetRouter";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import AllProducts from "./Pages/Dashboard/components/AllProducts";
 import AddProduct from "./Pages/Dashboard/components/AddProduct";
-import Login from "./Pages/Login/Login";
-import SignupPage from "./Pages/Login/SignUp";
+import Login from "./auth/Login/Login";
+import SignupPage from "./auth/Login/SignUp";
 
 export const router = createBrowserRouter([
   {
